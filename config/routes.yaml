@@ -4,3 +4,6 @@
 first_route:
   path: /home
   controller: App\Controller\HomeController::index
+guides_routes:
+  path: /guides
+  controller: App\Controller\GuidesController::guides
