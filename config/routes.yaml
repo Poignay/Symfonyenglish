@@ -7,3 +7,6 @@ first_route:
 guides_routes:
   path: /guides
   controller: App\Controller\GuidesController::guides
+user_route:
+  path: /signin
+  controller: App\Controller\SignInController:signin
