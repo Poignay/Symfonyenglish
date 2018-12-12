@@ -26,6 +26,12 @@ class Articles
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="containsArticles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $refCategories_fk;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +57,18 @@ class Articles
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getRefCategoriesFk(): ?Categories
+    {
+        return $this->refCategories_fk;
+    }
+
+    public function setRefCategoriesFk(?Categories $refCategories_fk): self
+    {
+        $this->refCategories_fk = $refCategories_fk;
 
         return $this;
     }
