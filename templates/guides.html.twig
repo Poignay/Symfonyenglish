@@ -3,19 +3,21 @@
 {% extends "layout/layout.html.twig" %}
 {% block body %}
     {% for cat in categories %}
-        <div class="row">
-            <div class="col s12 m6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">{{ cat.name }}</span>
-                        <p>{{ cat.description }}</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="{{ path('articles_routes', { 'category': cat.name }) }}">I would like to see more !!</a>
-                    </div>
-                </div>
+
+        <div class="card">
+            <div class="card-header">
+                {{ cat.name }}
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>
+                        {{ cat.description }}
+                    </p>
+                </blockquote>
+                <footer>
+                    <a class="btn btn-secondary" href="{{ path('articles_routes', { 'category': cat.name }) }}" role="button">I would like to see more !!</a>
+                </footer>
             </div>
         </div>
-
     {% endfor %}
 {% endblock %}

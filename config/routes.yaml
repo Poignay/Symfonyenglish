@@ -13,3 +13,6 @@ articles_routes:
 user_route:
   path: /signin
   controller: App\Controller\SignInController:signin
+backoffice_route:
+    path: /backoffice
+    controller: App\Controller\BackOfficeController:index
