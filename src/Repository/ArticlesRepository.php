@@ -36,6 +36,15 @@ class ArticlesRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.refCategories_fk = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Articles
     {
