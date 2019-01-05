@@ -41,6 +41,12 @@ class BackOfficeController extends Controller
                 'multiple'      => false))
             ->add('Save', SubmitType::class)
             ->getForm();
+
+        $repository = $this->getDoctrine()->getRepository(Categories::class);
+        $categories = $repository->findAll();
+        unset($repository);
+        $repository = $this->getDoctrine()->getRepository(Articles::class);
+        $articles = $repository->findAll();
         
         if ($request->isMethod('POST'))
         {
@@ -70,6 +76,8 @@ class BackOfficeController extends Controller
         }
 
         return $this->render('backoffice.html.twig', array(
+            'categories' => $categories,
+            'articles' => $articles,
             'formCategory' => $form->createView(),
             'formArticle' => $formArticle->createView()));
     }

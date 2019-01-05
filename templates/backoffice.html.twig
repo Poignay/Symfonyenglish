@@ -2,22 +2,62 @@
 
 {% extends "layout/layout.html.twig" %}
 {% block body %}
-    <div class="row">
-        <div class="col-4">
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Manage categories</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Manage articles</a>
-            </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Manage categories</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Manage articles</a>
+            <a class="nav-item nav-link" id="nav-cat-tab" data-toggle="tab" href="#nav-cat" role="tab" aria-controls="nav-cat" aria-selected="false">Add categories</a>
+            <a class="nav-item nav-link" id="nav-cat-tab" data-toggle="tab" href="#nav-art" role="tab" aria-controls="nav-art" aria-selected="false">Add articles</a>
         </div>
-        <div class="col-8">
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                    {{ form(formCategory) }}
-                    </div>
-                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                        {{ form(formArticle) }}
-                        </div>
-                    </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in categories %}
+                        <tr>
+                            <th scope="row">{{cat.id}}</th>
+                            <td>{{cat.name}}</td>
+                            <td>Some actions</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade show" id="nav-cat" role="tabpanel" aria-labelledby="nav-cat-tab">
+            {{ form(formCategory) }}
+            </div>
+
+            <div class="tab-pane fade show" id="nav-art" role="tabpanel" aria-labelledby="nav-art-tab">
+                {{ form(formArticle) }}
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for art in articles %}
+                                <tr>
+                                    <th scope="row">{{art.id}}</th>
+                                    <td>{{art.name}}</td>
+                                    <td>Some actions</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
         {% endblock %}
