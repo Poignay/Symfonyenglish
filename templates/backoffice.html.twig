@@ -1,17 +1,19 @@
 {# src/Resources/guides.html.twig for GuidesController.php #}
-
 {% extends "layout/layout.html.twig" %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('backoffice') }}
+{% endblock %}
 {% block body %}
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Manage categories</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Manage articles</a>
-            <a class="nav-item nav-link" id="nav-cat-tab" data-toggle="tab" href="#nav-cat" role="tab" aria-controls="nav-cat" aria-selected="false">Add categories</a>
-            <a class="nav-item nav-link" id="nav-cat-tab" data-toggle="tab" href="#nav-art" role="tab" aria-controls="nav-art" aria-selected="false">Add articles</a>
+            <a aria-controls="nav-home" aria-selected="true" class="nav-item nav-link active" data-toggle="tab" href="#nav-home" id="nav-home-tab" role="tab">Manage categories</a>
+            <a aria-controls="nav-profile" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#nav-profile" id="nav-profile-tab" role="tab">Manage articles</a>
+            <a aria-controls="nav-cat" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#nav-cat" id="nav-cat-tab" role="tab">Add categories</a>
+            <a aria-controls="nav-art" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#nav-art" id="nav-cat-tab" role="tab">Add articles</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div aria-labelledby="nav-home-tab" class="tab-pane fade show active" id="nav-home" role="tabpanel">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -23,22 +25,25 @@
                 <tbody>
                     {% for cat in categories %}
                         <tr>
-                            <th scope="row">{{cat.id}}</th>
-                            <td>{{cat.name}}</td>
-                            <td>Some actions</td>
+                            <th scope="row">
+                                {{cat.id}}</th>
+                            <td>
+                                {{cat.name}}</td>
+                            <td>
+                                <button class="btn btn-danger" id="delete" type="button">Delete</button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <div class="tab-pane fade show" id="nav-cat" role="tabpanel" aria-labelledby="nav-cat-tab">
+        <div aria-labelledby="nav-cat-tab" class="tab-pane fade show" id="nav-cat" role="tabpanel">
             {{ form(formCategory) }}
             </div>
-
-            <div class="tab-pane fade show" id="nav-art" role="tabpanel" aria-labelledby="nav-art-tab">
+            <div aria-labelledby="nav-art-tab" class="tab-pane fade show" id="nav-art" role="tabpanel">
                 {{ form(formArticle) }}
                 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div aria-labelledby="nav-profile-tab" class="tab-pane fade" id="nav-profile" role="tabpanel">
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
@@ -50,8 +55,10 @@
                         <tbody>
                             {% for art in articles %}
                                 <tr>
-                                    <th scope="row">{{art.id}}</th>
-                                    <td>{{art.name}}</td>
+                                    <th scope="row">
+                                        {{art.id}}</th>
+                                    <td>
+                                        {{art.name}}</td>
                                     <td>Some actions</td>
                                 </tr>
                             {% endfor %}
@@ -59,5 +66,5 @@
                     </table>
                 </div>
             </div>
-
         {% endblock %}
+    

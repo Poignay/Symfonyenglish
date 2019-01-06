@@ -50,12 +50,18 @@ class BackOfficeController extends Controller
         
         if ($request->isMethod('POST'))
         {
+            $em = $this->getDoctrine()->getManager();
+            if($request->request->get('id'))
+            {
+                $c = $em->getRepository(Categories::class)->find($request->request->get('id'));
+                $em->remove($c);
+                $em->flush();
+            }
             $form->handleRequest($request);
             if( $form->isSubmitted() )
             {
                 if($form->isValid())
                 {
-                    $em = $this->getDoctrine()->getManager();
                     $em->persist($category);
                     $em->flush();
                     return $this->redirectToRoute('guides_routes');
@@ -67,7 +73,6 @@ class BackOfficeController extends Controller
             {
                 if( $formArticle->isValid())
                 {
-                    $em = $this->getDoctrine()->getManager();
                     $em->persist($article);
                     $em->flush();
                     //TODO : display alert 
