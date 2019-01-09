@@ -2,25 +2,22 @@
 // src/Controller/BackOfficeController.php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Categories;
 use App\Entity\Articles;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Entity\Categories;
+use App\Utils\StringUtils;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\HttpFoundation\Request;
 
 class BackOfficeController extends Controller
 {
     public function index(Request $request)
     {
-        // TODO : controll if the user have the permission to access 
+        // TODO : controll if the user have the permission to access
 
         // FORM FOR ADD CATEGORIES
         $category = new Categories();
@@ -36,9 +33,9 @@ class BackOfficeController extends Controller
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('refCategories_fk', EntityType::class, array(
-                'class'         => Categories::class,
-                'choice_label'  => 'name',
-                'multiple'      => false))
+                'class' => Categories::class,
+                'choice_label' => 'name',
+                'multiple' => false))
             ->add('Save', SubmitType::class)
             ->getForm();
 
@@ -47,21 +44,31 @@ class BackOfficeController extends Controller
         unset($repository);
         $repository = $this->getDoctrine()->getRepository(Articles::class);
         $articles = $repository->findAll();
-        
-        if ($request->isMethod('POST'))
-        {
-            $em = $this->getDoctrine()->getManager();
-            if($request->request->get('id'))
-            {
-                $c = $em->getRepository(Categories::class)->find($request->request->get('id'));
-                $em->remove($c);
-                $em->flush();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->get('id') && $request->request->get('typeRequest') && $request->request->get('typeObject')) {
+                $typeRequest = $request->request->get('typeRequest');
+                $typeObject = $request->request->get('typeObject');
+                if ($typeRequest == StringUtils::$typeRequestDelete) {
+                    if ($typeObject == StringUtils::$typeObjectArticle) {
+                        $c = $em->getRepository(Articles::class)->find($request->$request->get('id'));
+                        $em->remove($c);
+                        $em->flush();
+                    } else if ($typeObject == StringUtils::$typeObjectCategory) {
+                        $c = $em->getRepository(Categories::class)->find($request->request->get('id'));
+                        $em->remove($c);
+                        $em->flush();
+                    }
+                } else if ($typeRequest == StringUtils::$typeRequestUpdate) {
+                    
+                    return $this->redirectToRoute('updates_route');
+                    //   $request->attributes->set(StringUtils::$typeObject, $typeObject));
+                }
             }
             $form->handleRequest($request);
-            if( $form->isSubmitted() )
-            {
-                if($form->isValid())
-                {
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
                     $em->persist($category);
                     $em->flush();
                     return $this->redirectToRoute('guides_routes');
@@ -69,13 +76,11 @@ class BackOfficeController extends Controller
             }
 
             $formArticle->handleRequest($request);
-            if( $formArticle->isSubmitted() )
-            {
-                if( $formArticle->isValid())
-                {
+            if ($formArticle->isSubmitted()) {
+                if ($formArticle->isValid()) {
                     $em->persist($article);
                     $em->flush();
-                    //TODO : display alert 
+                    //TODO : display alert
                 }
             }
         }

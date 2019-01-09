@@ -16,3 +16,6 @@ user_route:
 backoffice_route:
     path: /backoffice
     controller: App\Controller\BackOfficeController:index
+updates_route:
+    path: /update
+    controller: App\Controller\UpdateController:index

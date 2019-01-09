@@ -30,7 +30,8 @@
                             <td>
                                 {{cat.name}}</td>
                             <td>
-                                <button class="btn btn-danger" id="delete" type="button">Delete</button>
+                                <button class="btn btn-danger" id="deleteCategory" type="button">Delete</button>
+                                <button type="button" id="updateCategory" class="btn btn-info">Update</button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -59,7 +60,10 @@
                                         {{art.id}}</th>
                                     <td>
                                         {{art.name}}</td>
-                                    <td>Some actions</td>
+                                    <td>
+                                        <button class="btn btn-danger" id="deleteArticle" type="button">Delete</button>
+                                        <button type="button" id="updateArticle" class="btn btn-info">Update</button>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -67,4 +71,3 @@
                 </div>
             </div>
         {% endblock %}
-    
