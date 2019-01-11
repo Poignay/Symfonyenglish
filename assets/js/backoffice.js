@@ -1,7 +1,6 @@
 const nameObjectArticle = "article";
 const nameObjectCategory = "category";
 const nameActionDelete = "delete";
-const nameActionUpdate = "update";
 var updateFieldOpen = false;
 
 $(document).ready(function () {
@@ -17,18 +16,6 @@ $(document).ready(function () {
         callActionServices(id, nameActionDelete, nameObjectArticle);
     });
 
-    $(".table tbody").on("click", "#updateCategory", function () {
-        var currow = $(this).closest("tr");
-        var id = currow.find("th:eq(0)").html().trim();
-        callActionServices(id, nameActionUpdate, nameObjectCategory);
-    });
-
-    $(".table tbody").on("click", "#updateArticle", function () {
-        var currow = $(this).closest("tr");
-        var id = currow.find("th:eq(0)").html().trim();
-        callActionServices(id, nameActionUpdate, nameObjectArticle);
-    });
-
 });
 
 function callActionServices(id, typeRequest, typeObject) {
@@ -42,9 +29,9 @@ function callActionServices(id, typeRequest, typeObject) {
         } 
     })
         .done(function () {
-
+            //TODO : display success
         })
         .fail(function () {
-
+            //TODO : display error
         });
 }

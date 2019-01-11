@@ -31,7 +31,7 @@
                                 {{cat.name}}</td>
                             <td>
                                 <button class="btn btn-danger" id="deleteCategory" type="button">Delete</button>
-                                <button type="button" id="updateCategory" class="btn btn-info">Update</button>
+                                <a class="btn btn-secondary" href="{{ path('update_category_route', { 'categoryId': cat.id }) }}" role="button">Update</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -62,7 +62,7 @@
                                         {{art.name}}</td>
                                     <td>
                                         <button class="btn btn-danger" id="deleteArticle" type="button">Delete</button>
-                                        <button type="button" id="updateArticle" class="btn btn-info">Update</button>
+                                        <a class="btn btn-secondary" href="{{ path('update_article_route', { 'articleId': art.id }) }}" role="button">Update</a>
                                     </td>
                                 </tr>
                             {% endfor %}

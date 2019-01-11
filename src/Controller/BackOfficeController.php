@@ -47,23 +47,16 @@ class BackOfficeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($request->isMethod('POST')) {
-            if ($request->request->get('id') && $request->request->get('typeRequest') && $request->request->get('typeObject')) {
-                $typeRequest = $request->request->get('typeRequest');
+            if ($request->request->get('id') && $request->request->get('typeObject')) {
                 $typeObject = $request->request->get('typeObject');
-                if ($typeRequest == StringUtils::$typeRequestDelete) {
-                    if ($typeObject == StringUtils::$typeObjectArticle) {
-                        $c = $em->getRepository(Articles::class)->find($request->$request->get('id'));
-                        $em->remove($c);
-                        $em->flush();
-                    } else if ($typeObject == StringUtils::$typeObjectCategory) {
-                        $c = $em->getRepository(Categories::class)->find($request->request->get('id'));
-                        $em->remove($c);
-                        $em->flush();
-                    }
-                } else if ($typeRequest == StringUtils::$typeRequestUpdate) {
-                    
-                    return $this->redirectToRoute('updates_route');
-                    //   $request->attributes->set(StringUtils::$typeObject, $typeObject));
+                if ($typeObject == StringUtils::$typeObjectArticle) {
+                    $c = $em->getRepository(Articles::class)->find($request->$request->get('id'));
+                    $em->remove($c);
+                    $em->flush();
+                } else if ($typeObject == StringUtils::$typeObjectCategory) {
+                    $c = $em->getRepository(Categories::class)->find($request->request->get('id'));
+                    $em->remove($c);
+                    $em->flush();
                 }
             }
             $form->handleRequest($request);

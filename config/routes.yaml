@@ -9,13 +9,16 @@ guides_routes:
   controller: App\Controller\GuidesController::guides
 articles_routes:
   path: /articles/{category}
-  controller: App\Controller\ArticlesController:articles
+  controller: App\Controller\ArticlesController::articles
 user_route:
   path: /signin
-  controller: App\Controller\SignInController:signin
+  controller: App\Controller\SignInController::signin
 backoffice_route:
     path: /backoffice
-    controller: App\Controller\BackOfficeController:index
-updates_route:
-    path: /update
-    controller: App\Controller\UpdateController:index
+    controller: App\Controller\BackOfficeController::index
+update_category_route:
+    path: /updateCategory/{categoryId}
+    controller: App\Controller\UpdateController::updateCategory
+update_article_route:
+    path: /updateArticle/{articleId}
+    controller: App\Controller\UpdateController::updateArticle

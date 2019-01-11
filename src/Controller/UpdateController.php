@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Categories;
-use App\Utils\StringUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,19 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UpdateController extends Controller
 {
-    public function index(Request $request)
+    public function updateCategory(Request $request, $categoryId)
     {
-        $typeObject = $request->attributes->get(StringUtils::$typeObject);
-        $id = $request->attributes->get(StringUtils::$idField);
-        //FORM TO UPDATE THE ELEMENT
         $em = $this->getDoctrine()->getManager();
-        if ($typeObject == StringUtils::$typeObjectArticle) {
-            $elementToUpdate = $em->getRepository(Articles::class)->find($id);
-        } else if ($typeObject == StringUtils::$typeObjectCategory) {
-            $elementToUpdate = $em->getRepository(Categories::class)->find($id);
-        }
-        //TODO : diff to these two element
-        $form = $this->get('form.factory')->createBuilder(FormType::class, $elementToUpdate)
+        $category = $em->getRepository(Categories::class)->find($categoryId);
+
+        $form = $this->get('form.factory')->createBuilder(FormType::class, $category)
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('Save', SubmitType::class)
@@ -40,6 +32,32 @@ class UpdateController extends Controller
             }
         }
 
-        return $this->render('update.html.twig');
+        return $this->render('update.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function updateArticle(Request $request, $articleId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Articles::class)->find($articleId);
+
+        $form = $this->get('form.factory')->createBuilder(FormType::class, $article)
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('Save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em->flush();
+                return $this->redirectToRoute('backoffice_route');
+            }
+        }
+
+        return $this->render('update.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
