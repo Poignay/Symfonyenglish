@@ -1,4 +1,4 @@
-#Symphony English  
+# Symphony English  
 An English project for our DEVOPS degree (not plural) to validate our dregree.  
 
 Description of the project :  
