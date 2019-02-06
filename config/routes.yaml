@@ -10,6 +10,9 @@ guides_routes:
 articles_routes:
   path: /articles/{category}
   controller: App\Controller\ArticlesController::articles
+articles_details_routes:
+  path: /articles/details/{article}
+  controller: App\Controller\ArticlesDetailsController::details
 user_route:
   path: /signin
   controller: App\Controller\SignInController::signin

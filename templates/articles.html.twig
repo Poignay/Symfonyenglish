@@ -10,7 +10,7 @@
                             {{ art.name }}</h5>
                         <p class="card-text">
                             {{ art.description }}</p>
-                        <a class="btn btn-primary" href="#">Read more about this</a>
+                        <a class="btn btn-primary" href="{{ path('articles_details_routes', { 'article': art.id }) }}">Read more about this</a>
                     </div>
                 </div>
                 </br>
