@@ -32,6 +32,12 @@ class Articles
      */
     private $refCategories_fk;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreate;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Articles
     public function setRefCategoriesFk(?Categories $refCategories_fk): self
     {
         $this->refCategories_fk = $refCategories_fk;
+
+        return $this;
+    }
+
+    public function getDateCreate(): ?\DateTimeInterface
+    {
+        return $this->dateCreate;
+    }
+
+    public function setDateCreate(\DateTimeInterface $dateCreate): self
+    {
+        $this->dateCreate = $dateCreate;
 
         return $this;
     }

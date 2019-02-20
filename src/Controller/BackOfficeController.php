@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class BackOfficeController extends Controller
 {
@@ -71,6 +72,7 @@ class BackOfficeController extends Controller
             $formArticle->handleRequest($request);
             if ($formArticle->isSubmitted()) {
                 if ($formArticle->isValid()) {
+                    $article->setDateCreate(new \DateTime());
                     $em->persist($article);
                     $em->flush();
                     //TODO : display alert
