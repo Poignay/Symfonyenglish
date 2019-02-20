@@ -152,6 +152,9 @@
             "ref": "b5026d7ffdb43b4d66f4cc091b1e6f94e6023986"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/css-selector": {
         "version": "v4.1.7"
     },
