@@ -22,3 +22,6 @@ update_category_route:
 update_article_route:
     path: /updateArticle/{articleId}
     controller: App\Controller\UpdateController::updateArticle
+login_route:
+    path: /login
+    controller: App\Ontroller\LoginController:login

@@ -1,5 +1,24 @@
 {# src/Resources/signin.html.twig for SignInController.php #}
 
 {% extends "layout/layout.html.twig" %}
+
 {% block body %}
+
+    <div class="tab-content" id="nav-tabContent">
+        <div aria-labelledby="nav-home-tab" class="tab-pane fade show active" id="nav-home" role="tabpanel">
+            <table class="table">
+                <tr>
+                    <td>User name :</td>
+                    <td><input type="text" id="userName"/></td>
+                </tr>
+                <tr>
+                    <td>Password :</td>
+                    <td><input type="text" id="password"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 {% endblock %}
