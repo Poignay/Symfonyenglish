@@ -3,7 +3,6 @@
 {% extends "layout/layout.html.twig" %}
 
 {% block body %}
-
     <div class="tab-content" id="nav-tabContent">
         <div aria-labelledby="nav-home-tab" class="tab-pane fade show active" id="nav-home" role="tabpanel">
             <table class="table">
@@ -16,9 +15,16 @@
                     <td><input type="text" id="password"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2"></td>
+                    <td colspan="2">
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            Sign in
+                        </button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
 {% endblock %}
